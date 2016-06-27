@@ -32,4 +32,44 @@ public class SimilarityFinderTest
 		double result = finder.calculateJackardSimilarity(seq1, seq2);
 		assertEquals(1, result, 0.0001);
 	}
+	
+	@Test
+	public void similarityFinderTestEmptySeq() {
+		SimilarityFinder finder = new SimilarityFinder(searcher);
+		int[] seq1 = {};
+		int[] seq2 = {};
+		
+		double result = finder.calculateJackardSimilarity(seq1, seq2);
+		assertEquals(1, result, 0.0001);
+	}
+	
+	@Test
+	public void similarityFinderTestDifferentSeq() {
+		SimilarityFinder finder = new SimilarityFinder(searcher);
+		int[] seq1 = {1,5,2,90};
+		int[] seq2 = {12,3,4};
+		
+		double result = finder.calculateJackardSimilarity(seq1, seq2);
+		assertEquals(0, result, 0.0001);
+	}
+	
+	@Test
+	public void similarityFinderTestSimilarSeq() {
+		SimilarityFinder finder = new SimilarityFinder(searcher);
+		int[] seq1 = {1,5,2,90,4};
+		int[] seq2 = {1,3,4,5,2};
+		
+		double result = finder.calculateJackardSimilarity(seq1, seq2);
+		assertEquals(0.66, result, 0.01);
+	}
+	
+	@Test
+	public void similarityFinderTestSimilarSeq2() {
+		SimilarityFinder finder = new SimilarityFinder(searcher);
+		int[] seq1 = {1};
+		int[] seq2 = {20,3,4,11,1};
+		
+		double result = finder.calculateJackardSimilarity(seq1, seq2);
+		assertEquals(0.2, result, 0.01);
+	}
 }
